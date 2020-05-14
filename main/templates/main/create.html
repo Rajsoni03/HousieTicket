@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+{% block create %}active{% endblock %}
+{% block content %}
+<style>
+    .feed {padding: 5px 0}
+</style>
+<div class="container">
+    <h1 class="text-center m-3">Create New</h1>
+    <form method="post">{% csrf_token %}
+        <table class="table border-">
+            <tr>
+                <td valign=top> Add Word : </td>
+                <td valign=top>
+                    <div id="newlink">
+                        <div class="feed">
+                            <input class="form-control" type="text" placeholder='Word 1' name="word1" size="50">
+                        </div>
+                    </div>
+                    <div class="text-center mt-2">
+                        <p id="addnew"><a class="btn btn-primary btn-sm text-white" role="button">Add New <span class="fa fa-plus"></a></p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" type="submit">Create Ticket</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    {% for i in final %}
+    <div class="card text-center mb-4" style="border: 3px solid black;">
+        <div class="card-header p-1  bg-white ">
+            <b>Ticket No. {{forloop.counter}}</b>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered m-0 img">
+                <tbody>
+                    {% for j in i %}
+                    <tr>
+                        {% for k in j %}
+                        <td><b class="word">{{k}}</b></td>
+                        {% endfor %}
+                    <tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer py-2 m-0 bg-white">
+        <p class="p-0 m-0">दि जैन सोशल ग्रुप जबलपुर मेन,अध्यक्ष. गोपाल अर्चना,  सचिव .प्रशांत प्रियांशी,  सांस्कृतिक प्रभारी- कपिल मोनिका,सांस्कृतिक प्रभारी - नवीन मनीषा,  विशेष सहयोगी - मिलिंद मौली, सांस्कृतिक प्रभारी - नवीन मनीषा,"विशेष सहयोगी - मिलिंद मौली</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<style type="text/css">
+    .img{
+        background-image:  linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url('https://terapanthegyanshala.com/uploads/banner111.png');
+        background-size: 100% 100%;
+        background-position: center;
+    }
+    .word{
+        fo
+    }
+</style>
+
+
+
+
+
+<script type="text/javascript">
+var count = 2;
+$("#addnew").click(function() {
+    var html = "<div class='feed'><input id='in" + count + "' class='form-control' type='text' name='word" + count + "' placeholder='Word " + count + "' size='50'></div>"
+    $("#newlink").append(html);
+    count++;
+});
+
+function foo(which) {
+    $("#div" + which).remove();
+}
+</script>
+{% endblock %}
