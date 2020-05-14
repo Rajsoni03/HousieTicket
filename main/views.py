@@ -2,6 +2,7 @@ from django.shortcuts import render
 import pandas as pd
 from random import randint as rnd
 from time import time
+from .models import List, Word
 
 
 # Create your views here.
@@ -10,7 +11,10 @@ def home(request):
 
 
 def data(request):
-    return render(request, 'main/data.html')
+    params = {
+        'list': List.objects.all()
+    }
+    return render(request, 'main/data.html', params)
 
 
 def create(request):
@@ -29,11 +33,23 @@ def create(request):
         index = []
         word = []
         count = 1
+        name = 'List{}'.format(int(time()))
+        print(name)
+        if 'save' in request.POST:
+            List(list_name=name).save()
+            list_obj = List.objects.filter(list_name=name)[0]
+
         for i in request.POST:
             if str(i).find('word') == 0:
                 word.append(request.POST.get(i, None))
                 index.append(count)
+                if 'save' in request.POST:
+                    Word(list_id=list_obj.id, word=request.POST.get(i, None)).save()
                 count += 1
+
+        if 'save' in request.POST:
+            list_obj.total_words = len(word)
+            list_obj.save()
 
         words['Index'] = index
         words['Words'] = word
@@ -45,7 +61,11 @@ def create(request):
         length = data.shape[0] - 1
 
         finalTicket = []
-        for i in range(300):
+        try:
+            noticket = int(request.POST.get('noticket', 300))
+        except:
+            noticket = 300
+        for i in range(noticket):
             finalTicket.append(one_ticket())
             no += 1
 
