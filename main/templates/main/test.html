@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% block data %}active{% endblock %}
+{% block content %}
+{% load static %}
+<h1>MyData</h1>
+<div  id="capture1" style="padding: 10px; background: #f5da55">
+    <div >
+        <div >
+            <b>Ticket No. 1</b>
+            <p>दि जैन सोशल ग्रुप जबलपुर मेन, अध्यक्ष. गोपाल अर्चना, सचिव .प्रशांत प्रियांशी, सांस्कृतिक प्रभारी- कपिल मोनिका,सांस्कृतिक प्रभारी - नवीन मनीषा, विशेष सहयोगी - मिलिंद मौली, सांस्कृतिक प्रभारी - नवीन मनीषा, विशेष सहयोगी - मिलिंद मौली</p>
+        </div>
+    </div>
+</div>
+<button onclick="screenshot('capture1')">Click</button>
+
+
+<div  id="capture3" style="padding: 10px; background: #f5da55">
+    <div >
+        <div >
+            <b>Ticket No. 3</b>
+            <p>दि जैन सोशल ग्रुप जबलपुर मेन, अध्यक्ष. गोपाल अर्चना, सचिव .प्रशांत प्रियांशी, सांस्कृतिक प्रभारी- कपिल मोनिका,सांस्कृतिक प्रभारी - नवीन मनीषा, विशेष सहयोगी - मिलिंद मौली, सांस्कृतिक प्रभारी - नवीन मनीषा, विशेष सहयोगी - मिलिंद मौली</p>
+        </div>
+    </div>
+</div>
+<button onclick="screenshot('capture3')">Click</button>
+<div  id="capture2" style="padding: 10px; background: #f5da55">
+    <div >
+        <div >
+            <b>Ticket No. 2</b>
+            <p>दि जैन सोशल ग्रुप जबलपुर मेन, अध्यक्ष. गोपाल अर्चना, सचिव .प्रशांत प्रियांशी, सांस्कृतिक प्रभारी- कपिल मोनिका,सांस्कृतिक प्रभारी - नवीन मनीषा, विशेष सहयोगी - मिलिंद मौली, सांस्कृतिक प्रभारी - नवीन मनीषा, विशेष सहयोगी - मिलिंद मौली</p>
+        </div>
+    </div>
+</div>
+<button onclick="screenshot('capture2')">Click</button>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script type="text/javascript">
+function screenshot(id) {
+    var id = id;
+    html2canvas(document.querySelector("#" + id + "")).then(canvas => {
+        document.body.appendChild(canvas)
+    });
+    console.log('done');
+}
+</script>
+{% endblock %}

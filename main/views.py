@@ -14,21 +14,14 @@ def data(request):
 
 
 def create(request):
-    finalTicket = [[[]]]
+    finalTicket = 0
+
     def one_ticket():
         ticket = []
-        # ticket.append([no])
         for i in range(3):
-            r1 = [data.iloc[rnd(0, length), 0], data.iloc[rnd(0, length), 0], data.iloc[rnd(0, length), 0],data.iloc[rnd(0, length), 0], data.iloc[rnd(0, length), 0]]
+            r1 = [data.iloc[rnd(0, length), 0], data.iloc[rnd(0, length), 0], data.iloc[rnd(0, length), 0],
+                  data.iloc[rnd(0, length), 0], data.iloc[rnd(0, length), 0]]
             ticket.append(r1)
-        # ticket.append([])
-        # ticket.append(["दि जैन सोशल ग्रुप जबलपुर मेन"])
-        # ticket.append(["अध्यक्ष. गोपाल अर्चना,  सचिव .प्रशांत प्रियांशी,  सांस्कृतिक प्रभारी- कपिल मोनिका,"])
-        # ticket.append(
-        #     ["सांस्कृतिक प्रभारी - नवीन मनीषा,  विशेष सहयोगी - मिलिंद मौली, सांस्कृतिक प्रभारी - नवीन मनीषा,  "
-        #      "विशेष सहयोगी - मिलिंद मौली"])
-        # ticket.append([])
-        # ticket.append([])
         return ticket
 
     if request.method == 'POST':
@@ -40,16 +33,13 @@ def create(request):
             if str(i).find('word') == 0:
                 word.append(request.POST.get(i, None))
                 index.append(count)
-                count+=1
+                count += 1
 
         words['Index'] = index
         words['Words'] = word
-        # print(words)
-
         data = pd.DataFrame(words, index=None)
         data = pd.DataFrame(
             i + ' - ' + j for i, j in (zip(map(str, (d for d in data['Index'])), map(str, (d for d in data['Words'])))))
-        # print(data)
 
         no = 1
         length = data.shape[0] - 1
@@ -60,6 +50,6 @@ def create(request):
             no += 1
 
     params = {
-        'final' : finalTicket
+        'final': finalTicket
     }
     return render(request, 'main/create.html', params)

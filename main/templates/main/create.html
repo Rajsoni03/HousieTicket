@@ -1,9 +1,7 @@
 {% extends 'main/base.html' %}
 {% block create %}active{% endblock %}
 {% block content %}
-<style>
-    .feed {padding: 5px 0}
-</style>
+
 <div class="container">
     <h1 class="text-center m-3">Create New</h1>
     <form method="post">{% csrf_token %}
@@ -21,14 +19,25 @@
                     </div>
                 </td>
             </tr>
+            <!-- <tr class="border-0">
+                <td> No. of Ticket : </td>
+                <td>
+                    <div>
+                        <div class="feed">
+                            <input class="form-control" type="text" placeholder='No of Ticket' name="noticket" size="50">
+                        </div>
+                    </div>
+                </td>
+            </tr> -->
         </table>
         <button class="btn btn-primary" type="submit">Create Ticket</button>
     </form>
 </div>
 
+{% if final is not 0 %}
 <div class="container mt-5">
     {% for i in final %}
-    <div class="card text-center mb-4" style="border: 3px solid black;">
+    <div class="card text-center mb-4" id="capture{{forloop.counter}}" style="border: 3px solid black;">
         <div class="card-header p-1  bg-white ">
             <b>Ticket No. {{forloop.counter}}</b>
         </div>
@@ -46,28 +55,32 @@
             </table>
         </div>
         <div class="card-footer py-2 m-0 bg-white">
-        <p class="p-0 m-0">दि जैन सोशल ग्रुप जबलपुर मेन,अध्यक्ष. गोपाल अर्चना,  सचिव .प्रशांत प्रियांशी,  सांस्कृतिक प्रभारी- कपिल मोनिका,सांस्कृतिक प्रभारी - नवीन मनीषा,  विशेष सहयोगी - मिलिंद मौली, सांस्कृतिक प्रभारी - नवीन मनीषा,"विशेष सहयोगी - मिलिंद मौली</p>
+        <p class="p-0 m-0">मुनिसुब्रत नाथ शाखा हनुमानताल जबलपुर, केंद्रीय अध्यक्ष -श्रीमती विमला चौधरी, प्रांतीय अध्यक्ष- श्रीमती सरला सामरिया, संभागीय अध्यक्ष - श्रीमती मिश्री जैन, अध्यक्ष- श्रीमती मोली जैन, सचिव -श्रीमती मीना जैन, कोषाध्यक्ष -श्रीमती स्वाति जैन
+</p>
         </div>
     </div>
     {% endfor %}
 </div>
+{% endif %}
 
+
+<!-- <div id="capture0" style="padding: 10px; background: #f5da55">
+    <h4 style="color: #000; ">box0</h4>
+</div> -->
+
+{% load static %}
 
 <style type="text/css">
     .img{
-        background-image:  linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url('https://terapanthegyanshala.com/uploads/banner111.png');
+        background-image:  linear-gradient(rgba(255,255,255,0.7),rgba(255,255,255,0.7)),url('{% static "main/images/myimg.png" %}');
         background-size: 100% 100%;
         background-position: center;
     }
-    .word{
-        fo
+    .feed {
+        padding: 5px 0;
     }
 </style>
-
-
-
-
-
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script type="text/javascript">
 var count = 2;
 $("#addnew").click(function() {
@@ -78,6 +91,14 @@ $("#addnew").click(function() {
 
 function foo(which) {
     $("#div" + which).remove();
+}
+
+function screenshot(id){
+    var id = id;
+    html2canvas(document.querySelector("#"+id+"")).then(canvas => {
+        document.body.appendChild(canvas)
+    });
+    console.log('done');
 }
 </script>
 {% endblock %}
