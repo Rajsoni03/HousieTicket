@@ -2,17 +2,17 @@
 {% block data %}active{% endblock %}
 
 {% block content %}
-<h1>MyData</h1>
-
-<div class="container">
+<div class="container text-center">
+	<h1 class=" m-3">MyData</h1>
 	<div class="row">
 		{% for i in list %}
-		<div class="col-4">
+		<div class="col-3">
 			<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
 			  <div class="card-header">List-{{i.id}}</div>
 			  <div class="card-body">
-			    <h5 class="card-title">Createed at {{i.date}}</h5>
-			    <!-- <p class="card-text"></p> -->
+			    <h5 class="card-title">Createed at {{i.date}}</h5><br>
+			    <button class="btn btn-sm btn-light">Edit</button>  
+			    <button class="btn btn-sm btn-light">Create</button>
 			  </div>
 			</div>			
 		</div>

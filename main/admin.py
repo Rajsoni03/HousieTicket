@@ -3,5 +3,16 @@ from .models import Word, List
 
 
 # Register your models here.
-admin.site.register(Word)
-admin.site.register(List)
+
+class WordAdmin(admin.ModelAdmin):
+    list_display = ['word', 'list_id', 'date']
+
+
+admin.site.register(Word, WordAdmin)
+
+
+class ListAdmin(admin.ModelAdmin):
+    list_display = ['list_name', 'total_words', 'footer', 'date']
+
+
+admin.site.register(List, ListAdmin)

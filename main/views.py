@@ -29,14 +29,11 @@ def create(request):
         return ticket
 
     if request.method == 'POST':
-        words = {}
-        index = []
-        word = []
+        words, index, word = {}, [], []
         count = 1
         name = 'List{}'.format(int(time()))
-        print(name)
         if 'save' in request.POST:
-            List(list_name=name).save()
+            List(list_name=name, footer=request.POST.get('footerline', None)).save()
             list_obj = List.objects.filter(list_name=name)[0]
 
         for i in request.POST:
@@ -56,20 +53,19 @@ def create(request):
         data = pd.DataFrame(words, index=None)
         data = pd.DataFrame(
             i + ' - ' + j for i, j in (zip(map(str, (d for d in data['Index'])), map(str, (d for d in data['Words'])))))
-
         no = 1
         length = data.shape[0] - 1
 
         finalTicket = []
-        try:
-            noticket = int(request.POST.get('noticket', 300))
-        except:
-            noticket = 300
+        noticket = int(request.POST.get('noticket', 1))
         for i in range(noticket):
             finalTicket.append(one_ticket())
             no += 1
 
+    footer = (List.objects.all().order_by('-date')[0]).footer
+    print(footer)
     params = {
-        'final': finalTicket
+        'final': finalTicket,
+        'footerline': footer
     }
     return render(request, 'main/create.html', params)
