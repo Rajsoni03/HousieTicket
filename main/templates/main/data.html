@@ -8,7 +8,10 @@
 		{% for i in list %}
 		<div class="col-3">
 			<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-			  <div class="card-header">List-{{i.id}}</div>
+			  <div class="card-header">
+			  	List ID - {{i.id}}<br>			  	
+			  	<b>{{i.list_name}}</b>
+			  </div>
 			  <div class="card-body">
 			    <h5 class="card-title">Createed at {{i.date}}</h5><br>
 			    <button class="btn btn-sm btn-light">Edit</button>  

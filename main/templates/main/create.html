@@ -36,28 +36,28 @@
             </tr>
         </table>
         <button class="btn btn-info" type="submit" name="create"><span class="fa fa-refresh"></span> Just Create Ticket</button>
-        <!-- <button class="btn btn-info" type="submit" name="save">Create Ticket and Save Words</button> -->
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-info border">
-                <h5 class="modal-title text-white">Are You Sure Want To Delete This Page</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <!-- <form method="post"> {% csrf_token %} -->
-                <button type="submit" name="save" class="btn btn-info">Save And Continue</button>
-                <!-- </form> -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info border">
+                        <h5 class="modal-title text-white">Please Give The Name For List</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <input class="form-control" type="text" placeholder='List Name....' name="listname" size="50">
+                        </div>   
+                    </div>                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="save" class="btn btn-info">Save And Continue</button>
+                        <!-- </form> -->
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- Modal -->
+        <!-- Modal -->
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-save"> </span> Create Ticket and Save Words List</button>
     </form>
 </div>

@@ -12,7 +12,7 @@ def home(request):
 
 def data(request):
     params = {
-        'list': List.objects.all()
+        'list': List.objects.all().order_by('-date')
     }
     return render(request, 'main/data.html', params)
 
@@ -31,7 +31,7 @@ def create(request):
     if request.method == 'POST':
         words, index, word = {}, [], []
         count = 1
-        name = 'List{}'.format(int(time()))
+        name = 'List{}'.format(int(time())) if request.POST.get('listname', None) is None else request.POST.get('listname', None)
         if 'save' in request.POST:
             List(list_name=name, footer=request.POST.get('footerline', None)).save()
             list_obj = List.objects.filter(list_name=name)[0]
