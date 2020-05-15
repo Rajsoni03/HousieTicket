@@ -31,8 +31,10 @@ def create(request):
     if request.method == 'POST':
         words, index, word = {}, [], []
         count = 1
-        name = 'List{}'.format(int(time())) if request.POST.get('listname', None) is None else request.POST.get('listname', None)
         if 'save' in request.POST:
+            print(request.POST.get('listname', None))
+            name = 'List{}'.format(int(time())) if request.POST.get('listname', '') is '' else request.POST.get(
+                'listname', '')
             List(list_name=name, footer=request.POST.get('footerline', None)).save()
             list_obj = List.objects.filter(list_name=name)[0]
 
