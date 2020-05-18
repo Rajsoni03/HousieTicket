@@ -1,26 +1,80 @@
 {% extends 'main/base.html' %}
 {% block data %}active{% endblock %}
-
 {% block content %}
 <div class="container text-center">
-	<h1 class=" m-3">MyData</h1>
-	<div class="row">
-		{% for i in list %}
-		<div class="col-3">
-			<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-			  <div class="card-header">
-			  	List ID - {{i.id}}<br>			  	
-			  	<b>{{i.list_name}}</b>
-			  </div>
-			  <div class="card-body">
-			    <h5 class="card-title">Createed at {{i.date}}</h5><br>
-			    <button class="btn btn-sm btn-light">Edit</button>  
-			    <button class="btn btn-sm btn-light">Create</button>
-			  </div>
-			</div>			
-		</div>
-		{% endfor %}
-	</div>	
-</div>
 
+
+{% if alart %}
+<div class="alert alert-danger mt-2" role="alert">
+  Your List {{del_list.list_name}} is Deleted...
+</div>
+{% endif %}
+
+    <h1 class="m-3">MyData</h1>
+    <div class="row">
+        {% for i,j in list.items %}
+        <div class="col-6 col-md-3">
+            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    List ID - {{i.id}}<br>
+                    <b>{{i.list_name}}</b>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Modified at {{i.date}}</h5><br>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalLong{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-info">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">{{i.list_name}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="post">{% csrf_token %}
+                                    <div class="modal-body">
+                                        <h3 class="text-info">Words</h3>
+                                        <table class="table table-info text-left m-0 p-0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%" scope="col">#</th>
+                                                    <th width="80%" scope="col">Words</th>
+                                                    <!-- <th width="10%" scope="col"></th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for k in j %}
+                                                <tr>
+                                                    <th scope="row">{{forloop.counter}}</th>
+                                                    <td><input type='text' class="form-control btn-light" name="word-{{k.id}}" placeholder="Word-{{forloop.counter}}" value="{{k.word}}"></td>
+                                                    <!-- <td>{{k.word}}</td> -->
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <div>
+                                            <h3 class="text-info mt-2">Footer</h3>
+                                            <div class="alert alert-info" role="alert"> <input type='text' name='footer' class="form-control btn-light" placeholder="Word-{{forloop.counter}}" value="{{i.footer}}">
+                                            </div>
+                                            <input type='text' name='list_id' value='{{i.id}}' hidden>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                        <button type="submit" name="delete_list" class="btn btn-danger">Delete List</button>
+                                        <button type="submit" name="save_list" class="btn btn-info">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#exampleModalLong{{forloop.counter}}"><span class="fa fa-edit"> </span> Edit</button>
+                    <button name='create' value="{{i.id}}" type="submit" class="btn btn-sm btn-light">Create</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
