@@ -96,7 +96,10 @@ def create(request):
             finalTicket.append(one_ticket())
             no += 1
 
-    footer = (List.objects.all().order_by('-id')[0]).footer
+    try:
+        footer = (List.objects.all().order_by('-id')[0]).footer
+    except:
+        footer = ''
     params = {
         'final': finalTicket,
         'footerline': footer,

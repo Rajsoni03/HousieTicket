@@ -17,7 +17,8 @@
                     <b>{{i.list_name}}</b>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Modified at {{i.date}}</h5><br>
+                    <h5 class="card-title">Modified at {{i.date}}</h5>
+                    <h5 class="card-title"><b>{{i.total_words}}</b> Words</h5>
                     <form method="post" id="myForm{{forloop.counter}}" name="Form{{forloop.counter}}">{% csrf_token %}
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalLong{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -81,7 +82,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button class="btn btn-info" type="button" value="Create" name='button{{forloop.counter}}' onclick="OnButton{{forloop.counter}}()">Create - {{forloop.counter}}</button>
+                                        <button class="btn btn-info" type="button" value="Create" name='button{{forloop.counter}}' onclick="OnButton{{forloop.counter}}()">Create</button>
                                     </div>
                                 </div>
                             </div>
