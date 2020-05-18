@@ -2,14 +2,11 @@
 {% block data %}active{% endblock %}
 {% block content %}
 <div class="container text-center">
-
-
-{% if alart %}
-<div class="alert alert-danger mt-2" role="alert">
-  Your List {{del_list.list_name}} is Deleted...
-</div>
-{% endif %}
-
+    {% if alart %}
+    <div class="alert alert-danger mt-2" role="alert">
+        Your List {{del_list.list_name}} is Deleted...
+    </div>
+    {% endif %}
     <h1 class="m-3">MyData</h1>
     <div class="row">
         {% for i,j in list.items %}
@@ -21,17 +18,17 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Modified at {{i.date}}</h5><br>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalLong{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header bg-info">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">{{i.list_name}}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="post">{% csrf_token %}
+                    <form method="post" id="myForm{{forloop.counter}}" name="Form{{forloop.counter}}">{% csrf_token %}
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalLong{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-info">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">{{i.list_name}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     <div class="modal-body">
                                         <h3 class="text-info">Words</h3>
                                         <table class="table table-info text-left m-0 p-0">
@@ -46,7 +43,7 @@
                                                 {% for k in j %}
                                                 <tr>
                                                     <th scope="row">{{forloop.counter}}</th>
-                                                    <td><input type='text' class="form-control btn-light" name="word-{{k.id}}" placeholder="Word-{{forloop.counter}}" value="{{k.word}}"></td>
+                                                    <td><input type='text' class="form-control" name="word{{k.id}}" placeholder="Word-{{forloop.counter}}" value="{{k.word}}"></td>
                                                     <!-- <td>{{k.word}}</td> -->
                                                 </tr>
                                                 {% endfor %}
@@ -54,27 +51,83 @@
                                         </table>
                                         <div>
                                             <h3 class="text-info mt-2">Footer</h3>
-                                            <div class="alert alert-info" role="alert"> <input type='text' name='footer' class="form-control btn-light" placeholder="Word-{{forloop.counter}}" value="{{i.footer}}">
+                                            <div class="alert alert-info" role="alert"> <input type='text' name='footerline' class="form-control" placeholder="Word-{{forloop.counter}}" value="{{i.footer}}">
                                             </div>
                                             <input type='text' name='list_id' value='{{i.id}}' hidden>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                                         <button type="submit" name="delete_list" class="btn btn-danger">Delete List</button>
                                         <button type="submit" name="save_list" class="btn btn-info">Save Changes</button>
+                                        <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter{{forloop.counter}}">Create Ticket</button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Modal -->
+                        <!-- Modal -->
+                        <!-- Create modal -->
+                        <div class="modal fade" id="exampleModalCenter{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-info">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Create Tickets Using This List</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="text-info">Number of Tickets</h3>
+                                        <div class="alert alert-info" role="alert"> <input class="form-control" type="text" name="noticket" placeholder="Number of Ticket" value="300"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-info" type="button" value="Create" name='button{{forloop.counter}}' onclick="OnButton{{forloop.counter}}()">Create - {{forloop.counter}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Create Model -->
+                    </form>
                     <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#exampleModalLong{{forloop.counter}}"><span class="fa fa-edit"> </span> Edit</button>
-                    <button name='create' value="{{i.id}}" type="submit" class="btn btn-sm btn-light">Create</button>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+<script type="text/javascript">
+
+
+{% for i, j in list.items %}
+
+function OnButton{{forloop.counter}}() {
+    document.getElementById("myForm{{forloop.counter}}").action = "/create";
+    document.getElementById("myForm{{forloop.counter}}").submit();
+    return true;
+} 
+
+{% endfor %}
+
+
+</script>
 {% endblock %}
+<!-- 
+<button>Button #1</button>
+<button>Button #2</button>
+<div><span>0</span> button #1 clicks.</div>
+<div><span>0</span> button #2 clicks.</div>
+ 
+<script>
+$( "button" ).first().click(function() {
+  update( $( "span" ).first() );
+});
+ 
+$( "button" ).last().click(function() {
+  $( "button" ).first().trigger( "click" );
+  update( $( "span" ).last() );
+});
+ 
+function update( j ) {
+  var n = parseInt( j.text(), 10 );
+  j.text( n + 1 );
+} -->
