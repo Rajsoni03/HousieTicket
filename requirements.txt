@@ -1,4 +1,4 @@
-Django==2.2.6
+Django==2.2.18
 django_heroku
 pandas==0.25.2
 Werkzeug==0.15.2
